@@ -1,0 +1,95 @@
+{
+  "version": 1,
+  "author": "Nathaniel - Smart HVAC with visible buttons",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btnEmergency",
+      "top": 236.6,
+      "left": -19.2,
+      "attrs": { "color": "red", "label": "EMERGENCY" }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btnReset",
+      "top": 188.6,
+      "left": 67.2,
+      "attrs": { "color": "green", "label": "RESET" }
+    },
+    { "type": "wokwi-esp32-devkit-v1", "id": "esp", "top": 129.5, "left": 167.8, "attrs": {} },
+    {
+      "type": "wokwi-dht22",
+      "id": "dht1",
+      "top": 38.7,
+      "left": 33,
+      "attrs": { "temperature": "24", "humidity": "45" }
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "pot1",
+      "top": 219.5,
+      "left": 374.2,
+      "attrs": { "value": "2000" }
+    },
+    { "type": "wokwi-lcd1602", "id": "lcd1", "top": 40, "left": 430, "attrs": { "pins": "i2c" } },
+    {
+      "type": "wokwi-led",
+      "id": "ledCool",
+      "top": 313.2,
+      "left": 23,
+      "attrs": { "color": "blue", "label": "Cooling" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "ledHeat",
+      "top": 361.2,
+      "left": 23,
+      "attrs": { "color": "yellow", "label": "Heating" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "ledFan",
+      "top": 409.2,
+      "left": 23,
+      "attrs": { "color": "green", "label": "Fan" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "ledFault",
+      "top": 457.2,
+      "left": 23,
+      "attrs": { "color": "red", "label": "Fault" }
+    },
+    { "type": "wokwi-buzzer", "id": "buzzer1", "top": 396, "left": 405, "attrs": {} }
+  ],
+  "connections": [
+    [ "esp:TX0", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX0", "$serialMonitor:TX", "", [] ],
+    [ "dht1:VCC", "esp:3V3", "red", [] ],
+    [ "dht1:GND", "esp:GND.1", "black", [] ],
+    [ "dht1:SDA", "esp:D15", "green", [] ],
+    [ "pot1:VCC", "esp:3V3", "red", [] ],
+    [ "pot1:GND", "esp:GND.1", "black", [] ],
+    [ "pot1:SIG", "esp:D34", "orange", [] ],
+    [ "lcd1:VCC", "esp:5V", "red", [] ],
+    [ "lcd1:GND", "esp:GND.1", "black", [] ],
+    [ "lcd1:SDA", "esp:D21", "blue", [] ],
+    [ "lcd1:SCL", "esp:D22", "purple", [] ],
+    [ "ledCool:A", "esp:D26", "blue", [] ],
+    [ "ledCool:C", "esp:GND.1", "black", [] ],
+    [ "ledHeat:A", "esp:D27", "yellow", [] ],
+    [ "ledHeat:C", "esp:GND.1", "black", [] ],
+    [ "ledFan:A", "esp:D25", "green", [] ],
+    [ "ledFan:C", "esp:GND.1", "black", [] ],
+    [ "ledFault:A", "esp:D23", "red", [] ],
+    [ "ledFault:C", "esp:GND.1", "black", [] ],
+    [ "buzzer1:1", "esp:D19", "brown", [] ],
+    [ "buzzer1:2", "esp:GND.1", "black", [] ],
+    [ "btnEmergency:1.r", "esp:GND.1", "black", [] ],
+    [ "btnEmergency:2.r", "esp:D4", "red", [] ],
+    [ "btnReset:1.r", "esp:GND.1", "black", [] ],
+    [ "btnReset:2.r", "esp:D18", "green", [] ]
+  ],
+  "dependencies": {}
+}
